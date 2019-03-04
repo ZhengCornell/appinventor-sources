@@ -61,7 +61,7 @@ public abstract class AndroidViewComponent extends VisibleComponent {
   }
 
   /**
-   * Specifies whether the component should be visible on the screen.  Value is true if the 
+   * Specifies whether the component should be visible on the screen.  Value is true if the
    * component is showing and false if hidden.
    * @param  visibility desired state
    */
