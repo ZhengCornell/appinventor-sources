@@ -25,15 +25,20 @@ Blockly.PROPERTY_READWRITEABLE = 3;
  * @property {string} name
  * @property {string} external
  * @property {string} version
+ * @property {string} versionName
+ * @property {string} dateBuilt
  * @property {string} categoryString
  * @property {string} helpString
+ * @property {string} helpUrl
  * @property {string} showOnPalette
+ * @property {string} categoryDocUrlString
  * @property {string} nonVisible
  * @property {string} iconName
  * @property {Object.<string, EventDescriptor>} events
  * @property {Object.<string, PropertyDescriptor>} properties
  * @property {Object.<string, Object<string, string>>} blockProperties
  * @property {Object.<string, MethodDescriptor>} methods
+ * @property {Object.<string, string>} propertiesTypesByName
  */
 ComponentInfo = function() {};
 
@@ -63,6 +68,10 @@ MethodDescriptor = function() {};
  * @property {!string} type
  * @property {!string} rw
  * @property {?boolean} deprecated
+ * @property {!string} defaultValue
+ * @property {!string} caption
+ * @property {!string} editorType
+ * @property {!string[]} editorArgs
  */
 PropertyDescriptor = function() {};
 

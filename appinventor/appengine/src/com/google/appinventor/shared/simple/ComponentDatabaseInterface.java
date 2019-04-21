@@ -13,17 +13,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import jsinterop.annotations;
 
 /**
  * Database holding property and event information of Simple components.
  *
  * @author lizlooney@google.com (lizlooney)
  */
+@JsType(namespace = JsPackage.GLOBAL, isNative = true, name = "Object")
 public interface ComponentDatabaseInterface {
 
   /**
    * Simple component information: component name, its properties
    */
+   @JsType(namespace = JsPackage.GLOBAL, isNative = true, name = "Object")
   public static class ComponentDefinition {
     private final String name;
     private final int version;
@@ -45,6 +48,7 @@ public interface ComponentDatabaseInterface {
     private final String iconName;
     private final String typeDescription;
 
+    @JsOverlay
     public ComponentDefinition(String name, int version, String versionName, String dateBuilt, String type, boolean external,
               String categoryString, String helpString, String helpUrl,
               boolean showOnPalette, boolean nonVisible, String iconName, String typeDescription) {
@@ -69,93 +73,116 @@ public interface ComponentDatabaseInterface {
       this.typeDescription = typeDescription;
     }
 
+    @JsOverlay
     public void add(PropertyDefinition property) {
       properties.add(property);
       propertiesTypesByName.put(property.getName(), property.getEditorType());
     }
 
+    @JsOverlay
     public void add(BlockPropertyDefinition blockProperty) {
       blockProperties.add(blockProperty);
     }
 
+    @JsOverlay
     public void add(EventDefinition event) {
       events.add(event);
     }
 
+    @JsOverlay
     public void add(MethodDefinition method) {
       methods.add(method);
     }
 
+    @JsOverlay
     public String getName() {
       return name;
     }
 
+    @JsOverlay
     public int getVersion() {
       return version;
     }
 
+    @JsOverlay
     public String getVersionName() {
       return versionName;
     }
 
+    @JsOverlay
     public String getDateBuilt() {
       return dateBuilt;
     }
 
+    @JsOverlay
     public String getType() {
       return type;
     }
 
+    @JsOverlay
     public boolean isExternal() {
       return external;
     }
 
+    @JsOverlay
     public String getCategoryString() {
       return categoryString;
     }
 
+    @JsOverlay
     public String getHelpString() {
       return helpString;
     }
 
+    @JsOverlay
     public String getHelpUrl() { return helpUrl; }
 
+    @JsOverlay
     public boolean isShowOnPalette() {
       return showOnPalette;
     }
 
+    @JsOverlay
     public String getCategoryDocUrlString() {
       return categoryDocUrlString;
     }
 
+    @JsOverlay
     public List<PropertyDefinition> getProperties() {
       return properties;
     }
 
+    @JsOverlay
     public List<BlockPropertyDefinition> getBlockProperties() {
       return blockProperties;
     }
 
+    @JsOverlay
     public List<EventDefinition> getEvents() {
       return events;
     }
 
+    @JsOverlay
     public List<MethodDefinition> getMethods() {
       return methods;
     }
 
+    @JsOverlay
     public Map<String, String> getPropertiesTypesByName() {
       return propertiesTypesByName;
     }
 
+    @JsOverlay
     public boolean isNonVisible() {
       return nonVisible;
     }
 
+    @JsOverlay
     public String getIconName() {
       return iconName;
     }
 
+    @JsOverlay
     public String getTypeDescription() {
       return typeDescription;
     }
@@ -166,6 +193,7 @@ public interface ComponentDatabaseInterface {
    * Property definition: property name, property editor type and property
    * default value.
    */
+   @JsType(namespace = JsPackage.GLOBAL, isNative = true, name = "Object")
   public static class PropertyDefinition {
     private final String name;
     private final String defaultValue;
@@ -173,10 +201,12 @@ public interface ComponentDatabaseInterface {
     private final String editorType;
     private final String[] editorArgs;
 
+    @JsOverlay
     public PropertyDefinition(String name, String defaultValue, String editorType, String[] editorArgs) {
       this(name, defaultValue, name, editorType, editorArgs);
     }
 
+    @JsOverlay
     public PropertyDefinition(String name, String defaultValue, String caption, String editorType, String[] editorArgs) {
       this.name = name;
       this.defaultValue = defaultValue;
@@ -210,16 +240,19 @@ public interface ComponentDatabaseInterface {
    * Block Property definition: property name, property description and property
    * type and read/write permission.
    */
+   @JsType(namespace = JsPackage.GLOBAL, isNative = true, name = "Object")
   public static class BlockPropertyDefinition {
     private final String name;
     private final String description;
     private final String type;
     private final String rw;
 
+    @JsOverlay
     public BlockPropertyDefinition(String name, String description, String type) {
       this(name, description, type, "read-write");
     }
 
+    @JsOverlay
     public BlockPropertyDefinition(String name, String description,
         String type, String rw) {
       this.name = name;
@@ -228,18 +261,22 @@ public interface ComponentDatabaseInterface {
       this.rw = rw;
     }
 
+    @JsOverlay
     public String getName() {
       return name;
     }
 
+    @JsOverlay
     public String getDescription() {
       return description;
     }
 
+    @JsOverlay
     public String getType() {
       return type;
     }
 
+    @JsOverlay
     public String getRW() {
       return rw;
     }
@@ -249,19 +286,23 @@ public interface ComponentDatabaseInterface {
    * Method and Event's parameter definition: parameter name and
    * parameter type.
    */
+   @JsType(namespace = JsPackage.GLOBAL, isNative = true, name = "Object")
   public static class ParameterDefinition {
     private final String name;
     private final String type;
 
+    @JsOverlay
     public ParameterDefinition(String name, String type) {
       this.name = name;
       this.type = type;
     }
 
+    @JsOverlay
     public String getName() {
       return name;
     }
 
+    @JsOverlay
     public String getType() {
       return type;
     }
@@ -270,6 +311,7 @@ public interface ComponentDatabaseInterface {
   /**
    * Event definition: event name, event description and event params.
    */
+   @JsType(namespace = JsPackage.GLOBAL, isNative = true, name = "Object")
   public static class EventDefinition {
     private final String name;
     private final String description;
@@ -277,6 +319,7 @@ public interface ComponentDatabaseInterface {
     // "params": [{ "name": "xAccel", "type": "number"},*]
     private final List<ParameterDefinition> params;
 
+    @JsOverlay
     public EventDefinition(String name, String description, boolean deprecated,
         List<ParameterDefinition> params) {
       this.name = name;
@@ -285,16 +328,20 @@ public interface ComponentDatabaseInterface {
       this.params = params;
     }
 
+    @JsOverlay
     public String getName() {
       return name;
     }
 
+    @JsOverlay
     public String getDescription() {
       return description;
     }
 
+    @JsOverlay
     public boolean getDeprecated() { return deprecated; }
 
+    @JsOverlay
     public List<ParameterDefinition> getParam() {
       return params;
     }
@@ -304,6 +351,7 @@ public interface ComponentDatabaseInterface {
    * Method definition: method name, method description, method params,
    * and return type.
    */
+   @JsType(namespace = JsPackage.GLOBAL, isNative = true, name = "Object")
   public static class MethodDefinition {
     private final String name;
     private final String description;
@@ -311,6 +359,7 @@ public interface ComponentDatabaseInterface {
     // "params": [{ "name": "xAccel", "type": "number"},*]
     private List<ParameterDefinition> params;
 
+    @JsOverlay
     public MethodDefinition(String name, String description, boolean deprecated,
         List<ParameterDefinition> params) {
       this.name = name;
@@ -319,16 +368,20 @@ public interface ComponentDatabaseInterface {
       this.params = params;
     }
 
+    @JsOverlay
     public String getName() {
       return name;
     }
 
+    @JsOverlay
     public String getDescription() {
       return description;
     }
 
+    @JsOverlay
     public boolean getDeprecated() { return deprecated; }
 
+    @JsOverlay
     public List<ParameterDefinition> getParam() {
       return params;
     }
@@ -337,6 +390,7 @@ public interface ComponentDatabaseInterface {
   /**
    * Returns the component names.
    */
+  @JsOverlay
   Set<String> getComponentNames();
 
   /**
@@ -345,6 +399,7 @@ public interface ComponentDatabaseInterface {
    *@param componentName name of component to query
    *@return type of the component
    */
+  @JsOverlay
   String getComponentType(String componentName);
 
   /**
@@ -353,6 +408,7 @@ public interface ComponentDatabaseInterface {
    *@param componentType type of component to query
    *@return name of the component
    */
+  @JsOverlay
   String getComponentName(String componentType);
 
   /**
@@ -362,6 +418,7 @@ public interface ComponentDatabaseInterface {
    *@param componentName name of component to query
    *@return true if componentName is external false otherwise
    */
+  @JsOverlay
   boolean getComponentExternal(String componentName);
 
   /**
@@ -370,6 +427,7 @@ public interface ComponentDatabaseInterface {
    * @param componentName  name of component to query
    * @return  the component version number
    */
+  @JsOverlay
   int getComponentVersion(String componentName);
 
   /**
@@ -378,6 +436,7 @@ public interface ComponentDatabaseInterface {
    * @param componentName  name of the component to query
    * @return  the component version name, or the empty string if none is provided
    */
+  @JsOverlay
   String getComponentVersionName(String componentName);
 
   /**
@@ -386,6 +445,7 @@ public interface ComponentDatabaseInterface {
    * @param componentName  mame of the component to query
    * @return  the component build date, or the empty string if non is provided
    */
+  @JsOverlay
   String getComponentBuildDate(String componentName);
 
   /**
@@ -399,6 +459,7 @@ public interface ComponentDatabaseInterface {
    * @param componentName  name of component to query
    * @return  the component's category
    */
+  @JsOverlay
   String getCategoryString(String componentName);
 
   /**
@@ -408,6 +469,7 @@ public interface ComponentDatabaseInterface {
    * @param componentName  name of component to query
    * @return  the URL piece in the docs
    */
+  @JsOverlay
   String getCategoryDocUrlString(String componentName);
 
   /**
@@ -424,6 +486,7 @@ public interface ComponentDatabaseInterface {
    * @param componentName  name of component to query
    * @return helpful message about the component
    */
+  @JsOverlay
   String getHelpString(String componentName);
 
   /**
@@ -432,6 +495,7 @@ public interface ComponentDatabaseInterface {
    * @param componentName  name of component to query
    * @return optional URL to external documentation for a component
    */
+  @JsOverlay
   String getHelpUrl(String componentName);
 
   /**
@@ -442,6 +506,7 @@ public interface ComponentDatabaseInterface {
    * @param componentName  name of component to query
    * @return whether the component should be shown on the palette
    */
+  @JsOverlay
   boolean getShowOnPalette(String componentName);
 
   /**
@@ -453,12 +518,14 @@ public interface ComponentDatabaseInterface {
    * @param componentName  name of component to query
    * @return whether the component is non-visible
    */
+  @JsOverlay
   boolean getNonVisible(String componentName);
 
   /**
    * Returns the name of the icon file (last part of the path name) for the
    * icon to be shown in the Designer
    */
+  @JsOverlay
   String getIconName(String componentName);
 
   /**
@@ -467,6 +534,7 @@ public interface ComponentDatabaseInterface {
    * @param componentName  name of component to query
    * @return  list of property definition for the component
    */
+  @JsOverlay
   List<PropertyDefinition> getPropertyDefinitions(String componentName);
 
   /**
@@ -475,6 +543,7 @@ public interface ComponentDatabaseInterface {
    * @param componentName  name of component to query
    * @return  list of block property definition for the component
    */
+  @JsOverlay
   List<BlockPropertyDefinition> getBlockPropertyDefinitions(String componentName);
 
   /**
@@ -483,6 +552,7 @@ public interface ComponentDatabaseInterface {
    * @param componentName  name of component to query
    * @return  list of event definition for the component
    */
+  @JsOverlay
   List<EventDefinition> getEventDefinitions(String componentName);
 
   /**
@@ -491,6 +561,7 @@ public interface ComponentDatabaseInterface {
    * @param componentName  name of component to query
    * @return  list of method definition for the component
    */
+  @JsOverlay
   List<MethodDefinition> getMethodDefinitions(String componentName);
 
   /*
@@ -499,6 +570,7 @@ public interface ComponentDatabaseInterface {
    * @param componentName  name of component to query
    * @return  map of property names and types
    */
+  @JsOverlay
   Map<String, String> getPropertyTypesByName(String componentName);
 
   /*
@@ -506,6 +578,7 @@ public interface ComponentDatabaseInterface {
    *
    * @param componentName  name of component to query
    */
+  @JsOverlay
   String getTypeDescription(String componentName);
 
    /*
@@ -513,5 +586,6 @@ public interface ComponentDatabaseInterface {
    *
    * @param componentName  name of component to query
    */
+  @JsOverlay
   boolean isComponent(String componentName);
 }
