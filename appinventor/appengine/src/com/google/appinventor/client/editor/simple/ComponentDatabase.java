@@ -18,6 +18,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
+
 
 import static com.google.appinventor.client.Ode.MESSAGES;
 
@@ -263,13 +267,14 @@ class ComponentDatabase implements ComponentDatabaseInterface {
   }
 
   @Override
-  public List<BlockPropertyDefinition> getBlockPropertyDefinitions(String componentName) {
-    ComponentDefinition component = components.get(componentName);
-    if (component == null) {
-      throw new ComponentNotFoundException(componentName);
-    }
-
-    return component.getBlockProperties();
+  public List<PropertyDefinition> getBlockPropertyDefinitions(String componentName) {
+    // ComponentDefinition component = components.get(componentName);
+    // if (component == null) {
+    //   throw new ComponentNotFoundException(componentName);
+    // }
+    //
+    // return component.getBlockProperties();
+    return getPropertyDefinitions(componentName);
   }
 
   @Override
@@ -340,7 +345,7 @@ class ComponentDatabase implements ComponentDatabaseInterface {
         Boolean.valueOf(properties.get("nonVisible").asString().getString()),
         properties.get("iconName").asString().getString(), componentNode.toJson());
     findComponentProperties(component, properties.get("properties").asArray());
-    findComponentBlockProperties(component, properties.get("blockProperties").asArray());
+    // findComponentBlockProperties(component, properties.get("blockProperties").asArray());
     findComponentEvents(component, properties.get("events").asArray());
     findComponentMethods(component, properties.get("methods").asArray());
     components.put(component.getName(), component);
@@ -380,21 +385,26 @@ class ComponentDatabase implements ComponentDatabaseInterface {
       component.add(new PropertyDefinition(properties.get("name").asString().getString(),
           properties.get("defaultValue").asString().getString(),
           properties.get("editorType").asString().getString(),
-          editorArgsList.toArray(new String[0])));
+          editorArgsList.toArray(new String[0]),
+          properties.get("description").asString().getString(),
+          properties.get("type").asString().getString(),
+          properties.get("rw").asString().getString(),
+          properties.get("deprecated").asString().getString()));
     }
   }
 
   /*
    * Enters block property information into the component descriptor.
    */
-  private void findComponentBlockProperties(ComponentDefinition component, JSONArray blockPropertiesArray) {
-    for (JSONValue blockPropertyValue : blockPropertiesArray.getElements()) {
-      Map<String, JSONValue> blockProperties = blockPropertyValue.asObject().getProperties();
-      component.add(new BlockPropertyDefinition(blockProperties.get("name").asString().getString(),
-          blockProperties.get("description").asString().getString(), blockProperties.get("type")
-              .asString().getString(), blockProperties.get("rw").asString().getString()));
-    }
-  }
+  // private void findComponentBlockProperties(ComponentDefinition component, JSONArray blockPropertiesArray) {
+  //   // for (JSONValue blockPropertyValue : blockPropertiesArray.getElements()) {
+  //   //   Map<String, JSONValue> blockProperties = blockPropertyValue.asObject().getProperties();
+  //   //   component.add(new BlockPropertyDefinition(blockProperties.get("name").asString().getString(),
+  //   //       blockProperties.get("description").asString().getString(), blockProperties.get("type")
+  //   //           .asString().getString(), blockProperties.get("rw").asString().getString()));
+  //   // }
+  //   findComponentProperties(component, blockPropertiesArray);
+  // }
 
   /*
    * Enters event information into the component descriptor.
