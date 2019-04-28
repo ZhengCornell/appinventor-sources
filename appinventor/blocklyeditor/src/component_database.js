@@ -126,6 +126,24 @@ Blockly.ComponentDatabase = function() {
  * @returns {boolean} true if the component was added, false if a component exists with the given
  * UUID.
  */
+Blockly.ComponentDatabase.prototype.getComponentDefinition = function(componentName) {
+  // if (this.hasInstance(uid)) {
+  //   return false;
+  // }
+  return this.types_[componentName].componentInfo;
+  // this.instances_[uid] = {name: name, typeName: typeName};
+  // this.instanceNameUid_[name] = uid;
+  // return true;
+};
+
+/**
+ * Add a new instance to the ComponentDatabase.
+ * @param {!string} uid UUID of the component instance
+ * @param {!string} name Name of the component instance
+ * @param {!string} typeName Type of the component instance
+ * @returns {boolean} true if the component was added, false if a component exists with the given
+ * UUID.
+ */
 Blockly.ComponentDatabase.prototype.addInstance = function(uid, name, typeName) {
   if (this.hasInstance(uid)) {
     return false;

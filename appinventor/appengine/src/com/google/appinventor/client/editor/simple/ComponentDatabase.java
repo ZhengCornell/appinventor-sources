@@ -118,14 +118,16 @@ class ComponentDatabase implements ComponentDatabaseInterface {
     return components.keySet();
   }
 
-  public ComponentDefinition getComponentDefinition(String componentName) {
-    ComponentDefinition component = components.get(componentName);
-    if (component == null) {
-      throw new ComponentNotFoundException(componentName);
-    }
-
-    return component;
-  }
+  @JsOverlay
+  public native ComponentDefinition getComponentDefinition(String componentName);
+  // {
+  //   ComponentDefinition component = components.get(componentName);
+  //   if (component == null) {
+  //     throw new ComponentNotFoundException(componentName);
+  //   }
+  //
+  //   return component;
+  // }
 
   @Override
   public int getComponentVersion(String componentName) {
@@ -421,7 +423,7 @@ class ComponentDatabase implements ComponentDatabaseInterface {
         paramList.add(new ParameterDefinition(param.get("name").asString().getString(), param
             .get("type").asString().getString()));
       }
-      component.add(
+      component.addEvent(
           new EventDefinition(
               event.get("name").asString().getString(),
               event.get("description").asString().getString(),
@@ -433,6 +435,7 @@ class ComponentDatabase implements ComponentDatabaseInterface {
   /*
    * Enters method information into the component descriptor.
    */
+
   private void findComponentMethods(ComponentDefinition component, JSONArray methodsArray) {
     for (JSONValue blockPropertyValue : methodsArray.getElements()) {
       Map<String, JSONValue> method = blockPropertyValue.asObject().getProperties();
@@ -445,7 +448,7 @@ class ComponentDatabase implements ComponentDatabaseInterface {
         paramList.add(new ParameterDefinition(param.get("name").asString().getString(), param
             .get("type").asString().getString()));
       }
-      component.add(
+      component.addMethod(
           new MethodDefinition(
               method.get("name").asString().getString(),
               method.get("description").asString().getString(),

@@ -86,15 +86,14 @@ public interface ComponentDatabaseInterface {
 
     // not sure how to solve this problem: cannot both use the same JavaScript name 'add'
     // if I comment out, incompatible types: EventDefinition cannot be converted to PropertyDefinition
-    public void add(EventDefinition event) {
+    public void addEvent(EventDefinition event) {
       events.add(event);
     }
 
 
-    public void add(MethodDefinition method) {
+    public void addMethod(MethodDefinition method) {
       methods.add(method);
     }
-
 
     public String getName() {
       return name;
